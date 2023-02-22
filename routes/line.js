@@ -24,7 +24,7 @@ router.post('/', (req, res) => {
 
 // event handler
 function handleEvent(event) {
-
+  console.log(`使用者 ID: ${event.source.userId}`);
   if (event.replyToken === '00000000000000000000000000000000' || event.replyToken === 'ffffffffffffffffffffffffffffffff') {
     return Promise.resolve(null);
   }
@@ -67,7 +67,7 @@ function handleEvent(event) {
     return client.replyMessage(event.replyToken, [
       {
         type: 'imagemap',
-        baseUrl: 'https://github.com/line/line-bot-sdk-nodejs/raw/master/examples/kitchensink/static/rich',
+        baseUrl: 'https://github.com/line/line-bot-sdk-nodejs/raw/master/examples/kitchensink/static/buttons/1040.jpg',
         altText: 'Imagemap alt text',
         baseSize: {
           width: 1040,
@@ -130,60 +130,6 @@ function handleEvent(event) {
           }
         },
       },
-      {
-        type: 'template',
-        altText: 'Buttons alt text',
-        template: {
-          type: 'buttons',
-          thumbnailImageUrl: 'https://github.com/line/line-bot-sdk-nodejs/raw/master/examples/kitchensink/static/buttons/1040.jpg',
-          title: 'My button sample',
-          text: 'Hello, my button',
-          actions: [
-            {
-              label: 'Go to line.me',
-              type: 'uri',
-              uri: 'https://line.me'
-            },
-            {
-              label: 'Say hello1',
-              type: 'postback',
-              data: 'hello こんにちは'
-            },
-            {
-              label: '言 hello2',
-              type: 'postback',
-              data: 'hello こんにちは',
-              text: 'hello こんにちは'
-            },
-            {
-              label: 'Say message',
-              type: 'message',
-              text: 'Rice=米'
-            },
-          ],
-        },
-      },
-      {
-        type: 'flex',
-        altText: 'this is a flex message',
-        contents: {
-          type: 'bubble',
-          body: {
-            type: 'box',
-            layout: 'vertical',
-            contents: [
-              {
-                type: 'text',
-                text: 'hello'
-              },
-              {
-                type: 'text',
-                text: 'world'
-              }
-            ]
-          }
-        }
-      }
     ]);
   }
   if (event.message.text === 'Buttons template') {
@@ -245,77 +191,77 @@ function handleEvent(event) {
             },
           ],
         },
-      });
+    });
   }
   if (event.message.text === 'Carousel template') {
     return client.replyMessage(event.replyToken,
-      {
-        type: 'template',
-        altText: 'this is a carousel template',
-        template: {
-          type: 'carousel',
-          columns: [
-            {
-              thumbnailImageUrl: 'https://upload.wikimedia.org/wikipedia/commons/thumb/1/15/Red_Apple.jpg/847px-Red_Apple.jpg',
-              imageBackgroundColor: '#FFFFFF',
-              title: 'this is menu',
-              text: 'description',
-              defaultAction: {
+    {
+      type: 'template',
+      altText: 'this is a carousel template',
+      template: {
+        type: 'carousel',
+        columns: [
+          {
+            thumbnailImageUrl: 'https://upload.wikimedia.org/wikipedia/commons/thumb/1/15/Red_Apple.jpg/847px-Red_Apple.jpg',
+            imageBackgroundColor: '#FFFFFF',
+            title: 'this is menu',
+            text: 'description',
+            defaultAction: {
+              type: 'uri',
+              label: 'View detail',
+              uri: 'https://ithelp.ithome.com.tw/2020ironman',
+            },
+            actions: [
+              {
+                type: 'postback',
+                label: 'Buy',
+                data: 'action=buy&itemid=111',
+              },
+              {
+                type: 'message',
+                label: 'Osense',
+                text: 'Osense',
+              },
+              {
                 type: 'uri',
                 label: 'View detail',
                 uri: 'https://ithelp.ithome.com.tw/2020ironman',
               },
-              actions: [
-                {
-                  type: 'postback',
-                  label: 'Buy',
-                  data: 'action=buy&itemid=111',
-                },
-                {
-                  type: 'message',
-                  label: 'Osense',
-                  text: 'Osense',
-                },
-                {
-                  type: 'uri',
-                  label: 'View detail',
-                  uri: 'https://ithelp.ithome.com.tw/2020ironman',
-                },
-              ],
+            ],
+          },
+          {
+            thumbnailImageUrl: 'https://upload.wikimedia.org/wikipedia/commons/thumb/1/15/Red_Apple.jpg/847px-Red_Apple.jpg',
+            imageBackgroundColor: '#000000',
+            title: 'this is menu',
+            text: 'description',
+            defaultAction: {
+              type: 'uri',
+              label: 'View detail',
+              uri: 'https://ithelp.ithome.com.tw/2020ironman',
             },
-            {
-              thumbnailImageUrl: 'https://upload.wikimedia.org/wikipedia/commons/thumb/1/15/Red_Apple.jpg/847px-Red_Apple.jpg',
-              imageBackgroundColor: '#000000',
-              title: 'this is menu',
-              text: 'description',
-              defaultAction: {
+            actions: [
+              {
+                type: 'postback',
+                label: 'Buy',
+                data: 'action=buy&itemid=222',
+              },
+              {
+                type: 'message',
+                label: 'Osense',
+                text: 'Osense',
+              },
+              {
                 type: 'uri',
                 label: 'View detail',
                 uri: 'https://ithelp.ithome.com.tw/2020ironman',
               },
-              actions: [
-                {
-                  type: 'postback',
-                  label: 'Buy',
-                  data: 'action=buy&itemid=222',
-                },
-                {
-                  type: 'message',
-                  label: 'Osense',
-                  text: 'Osense',
-                },
-                {
-                  type: 'uri',
-                  label: 'View detail',
-                  uri: 'https://ithelp.ithome.com.tw/2020ironman',
-                },
-              ],
-            },
-          ],
-          imageAspectRatio: 'rectangle',
-          imageSize: 'cover',
-        },
-      });
+            ],
+          },
+        ],
+        imageAspectRatio: 'rectangle',
+        imageSize: 'cover',
+      },
+    });
   }
   if (event.message.text === 'Image carousel template') {
     return client.replyMessage(event.replyToken,
@@ -351,7 +297,280 @@ function handleEvent(event) {
             },
           ],
         },
-      });
+    });
+  }
+  if(event.message.text === 'flex templete'){
+    return client.replyMessage(event.replyToken,
+      {
+          type:"flex",
+          altText:"flex message demo",
+          contents:{
+            "type": "carousel",
+            "contents": [
+              {
+                "type": "bubble",
+                "body": {
+                  "type": "box",
+                  "layout": "vertical",
+                  "contents": [
+                    {
+                      "type": "image",
+                      "url": "https://scdn.line-apps.com/n/channel_devcenter/img/flexsnapshot/clip/clip1.jpg",
+                      "size": "full",
+                      "aspectMode": "cover",
+                      "aspectRatio": "2:3",
+                      "gravity": "top"
+                    },
+                    {
+                      "type": "box",
+                      "layout": "vertical",
+                      "contents": [
+                        {
+                          "type": "box",
+                          "layout": "vertical",
+                          "contents": [
+                            {
+                              "type": "text",
+                              "text": "Brown's T-shirts",
+                              "size": "xl",
+                              "color": "#ffffff",
+                              "weight": "bold"
+                            }
+                          ]
+                        },
+                        {
+                          "type": "box",
+                          "layout": "baseline",
+                          "contents": [
+                            {
+                              "type": "text",
+                              "text": "¥35,800",
+                              "color": "#ebebeb",
+                              "size": "sm",
+                              "flex": 0
+                            },
+                            {
+                              "type": "text",
+                              "text": "¥75,000",
+                              "color": "#ffffffcc",
+                              "decoration": "line-through",
+                              "gravity": "bottom",
+                              "flex": 0,
+                              "size": "sm"
+                            }
+                          ],
+                          "spacing": "lg"
+                        },
+                        {
+                          "type": "box",
+                          "layout": "vertical",
+                          "contents": [
+                            {
+                              "type": "filler"
+                            },
+                            {
+                              "type": "box",
+                              "layout": "baseline",
+                              "contents": [
+                                {
+                                  "type": "filler"
+                                },
+                                {
+                                  "type": "icon",
+                                  "url": "https://scdn.line-apps.com/n/channel_devcenter/img/flexsnapshot/clip/clip14.png"
+                                },
+                                {
+                                  "type": "text",
+                                  "text": "Add to cart",
+                                  "color": "#ffffff",
+                                  "flex": 0,
+                                  "offsetTop": "-2px"
+                                },
+                                {
+                                  "type": "filler"
+                                }
+                              ],
+                              "spacing": "sm"
+                            },
+                            {
+                              "type": "filler"
+                            }
+                          ],
+                          "borderWidth": "1px",
+                          "cornerRadius": "4px",
+                          "spacing": "sm",
+                          "borderColor": "#ffffff",
+                          "margin": "xxl",
+                          "height": "40px"
+                        }
+                      ],
+                      "position": "absolute",
+                      "offsetBottom": "0px",
+                      "offsetStart": "0px",
+                      "offsetEnd": "0px",
+                      "backgroundColor": "#03303Acc",
+                      "paddingAll": "20px",
+                      "paddingTop": "18px"
+                    },
+                    {
+                      "type": "box",
+                      "layout": "vertical",
+                      "contents": [
+                        {
+                          "type": "text",
+                          "text": "SALE",
+                          "color": "#ffffff",
+                          "align": "center",
+                          "size": "xs",
+                          "offsetTop": "3px"
+                        }
+                      ],
+                      "position": "absolute",
+                      "cornerRadius": "20px",
+                      "offsetTop": "18px",
+                      "backgroundColor": "#ff334b",
+                      "offsetStart": "18px",
+                      "height": "25px",
+                      "width": "53px"
+                    }
+                  ],
+                  "paddingAll": "0px"
+                }
+              },
+              {
+                "type": "bubble",
+                "body": {
+                  "type": "box",
+                  "layout": "vertical",
+                  "contents": [
+                    {
+                      "type": "image",
+                      "url": "https://scdn.line-apps.com/n/channel_devcenter/img/flexsnapshot/clip/clip2.jpg",
+                      "size": "full",
+                      "aspectMode": "cover",
+                      "aspectRatio": "2:3",
+                      "gravity": "top"
+                    },
+                    {
+                      "type": "box",
+                      "layout": "vertical",
+                      "contents": [
+                        {
+                          "type": "box",
+                          "layout": "vertical",
+                          "contents": [
+                            {
+                              "type": "text",
+                              "text": "Cony's T-shirts",
+                              "size": "xl",
+                              "color": "#ffffff",
+                              "weight": "bold"
+                            }
+                          ]
+                        },
+                        {
+                          "type": "box",
+                          "layout": "baseline",
+                          "contents": [
+                            {
+                              "type": "text",
+                              "text": "¥35,800",
+                              "color": "#ebebeb",
+                              "size": "sm",
+                              "flex": 0
+                            },
+                            {
+                              "type": "text",
+                              "text": "¥75,000",
+                              "color": "#ffffffcc",
+                              "decoration": "line-through",
+                              "gravity": "bottom",
+                              "flex": 0,
+                              "size": "sm"
+                            }
+                          ],
+                          "spacing": "lg"
+                        },
+                        {
+                          "type": "box",
+                          "layout": "vertical",
+                          "contents": [
+                            {
+                              "type": "filler"
+                            },
+                            {
+                              "type": "box",
+                              "layout": "baseline",
+                              "contents": [
+                                {
+                                  "type": "filler"
+                                },
+                                {
+                                  "type": "icon",
+                                  "url": "https://scdn.line-apps.com/n/channel_devcenter/img/flexsnapshot/clip/clip14.png"
+                                },
+                                {
+                                  "type": "text",
+                                  "text": "Add to cart",
+                                  "color": "#ffffff",
+                                  "flex": 0,
+                                  "offsetTop": "-2px"
+                                },
+                                {
+                                  "type": "filler"
+                                }
+                              ],
+                              "spacing": "sm"
+                            },
+                            {
+                              "type": "filler"
+                            }
+                          ],
+                          "borderWidth": "1px",
+                          "cornerRadius": "4px",
+                          "spacing": "sm",
+                          "borderColor": "#ffffff",
+                          "margin": "xxl",
+                          "height": "40px"
+                        }
+                      ],
+                      "position": "absolute",
+                      "offsetBottom": "0px",
+                      "offsetStart": "0px",
+                      "offsetEnd": "0px",
+                      "backgroundColor": "#9C8E7Ecc",
+                      "paddingAll": "20px",
+                      "paddingTop": "18px"
+                    },
+                    {
+                      "type": "box",
+                      "layout": "vertical",
+                      "contents": [
+                        {
+                          "type": "text",
+                          "text": "SALE",
+                          "color": "#ffffff",
+                          "align": "center",
+                          "size": "xs",
+                          "offsetTop": "3px"
+                        }
+                      ],
+                      "position": "absolute",
+                      "cornerRadius": "20px",
+                      "offsetTop": "18px",
+                      "backgroundColor": "#ff334b",
+                      "offsetStart": "18px",
+                      "height": "25px",
+                      "width": "53px"
+                    }
+                  ],
+                  "paddingAll": "0px"
+                }
+              }
+            ]            
+          }
+      }
+    )
   }
   if(event.message.text === 'Quick reply sample'){
     return client.replyMessage(event.replyToken,
@@ -403,19 +622,7 @@ function handleEvent(event) {
       }
     )
   }
-  if(event.message.text === 'show rich menu'){
-    const richmenu = {
-      size: {
-        width: 2500,
-        height: 1686
-      },
-      // Other rich menu object properties
-      // ...
-    }
-    client.createRichMenu(richmenu)
-      .then((richMenuId) =>
-      console.log(richMenuId))
-  }
+
 
   // create a echoing text message
   const echo = {
@@ -428,4 +635,6 @@ function handleEvent(event) {
 }
 
 module.exports =router
+
+// when use push message
 // module.exports ={router,client}
