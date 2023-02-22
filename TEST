@@ -1,0 +1,17 @@
+curl -v -X POST https://api.line.me/v2/bot/message/push \
+-H 'Content-Type: application/json' \
+-H 'Authorization: Bearer 147991aba6ee435954cb1dea4d10a608 \
+-H 'X-Line-Retry-Key: X/7zKcZ5apB2rEuiHwpzdXQf0A11O33L30qinGGl1HWLbhFRG0CNneCESNch7iOeYFIzNl6XZ/WMA+nBQSM8wr/YB6gl6G+9Z0sbnFvVUUOYRuGys1lb0NN32NobJpJvcbq2ds5A6x4UbZXIZnl4GAdB04t89/1O/w1cDnyilFU= \
+-d '{
+    "to": "U4d19e311a8a95f54d1e0adffb5137eca",
+    "messages":[
+        {
+            "type":"text",
+            "text":"Hello, world1"
+        },
+        {
+            "type":"text",
+            "text":"Hello, world2"
+        }
+    ]
+}'

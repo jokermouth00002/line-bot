@@ -11,8 +11,6 @@ const client = new line.Client({
   channelSecret: process.env['CHANNEL_SECRET']
 });
 
-router.get('/', (req, res) => res.end(`I'm listening. Please access with POST.`));
-
 router.post('/', (req, res) => {
   Promise
     .all(req.body.events.map(handleEvent))
@@ -23,8 +21,10 @@ router.post('/', (req, res) => {
     });
 });
 
+
 // event handler
 function handleEvent(event) {
+
   if (event.replyToken === '00000000000000000000000000000000' || event.replyToken === 'ffffffffffffffffffffffffffffffff') {
     return Promise.resolve(null);
   }
@@ -37,17 +37,17 @@ function handleEvent(event) {
       {
         type: 'sticker',
         packageId: '1',
-        stickerId: '1'
+        stickerId: '2'
       },
       {
         type: 'image',
-        originalContentUrl: 'https://developers.line.biz/media/messaging-api/messages/image-full-04fbba55.png',
-        previewImageUrl: 'https://developers.line.biz/media/messaging-api/messages/image-167efb33.png'
+        originalContentUrl:'https://upload.wikimedia.org/wikipedia/commons/thumb/1/15/Red_Apple.jpg/847px-Red_Apple.jpg',
+        previewImageUrl: 'https://upload.wikimedia.org/wikipedia/commons/thumb/1/15/Red_Apple.jpg/847px-Red_Apple.jpg'
       },
       {
         type: 'video',
         originalContentUrl: 'https://www.sample-videos.com/video123/mp4/240/big_buck_bunny_240p_1mb.mp4',
-        previewImageUrl: 'https://www.sample-videos.com/img/Sample-jpg-image-50kb.jpg'
+        previewImageUrl: 'https://www.collinsdictionary.com/images/full/apple_158989157.jpg'
       },
       {
         type: 'audio',
@@ -193,7 +193,7 @@ function handleEvent(event) {
         altText: 'This is a buttons template',
         template: {
           type: 'buttons',
-          thumbnailImageUrl: 'https://ithelp.ithome.com.tw/images/ironman/11th/event/kv_event/kv-bg-addfly.png',
+          thumbnailImageUrl: 'https://upload.wikimedia.org/wikipedia/commons/thumb/1/15/Red_Apple.jpg/847px-Red_Apple.jpg',
           imageAspectRatio: 'rectangle',
           imageSize: 'cover',
           imageBackgroundColor: '#FFFFFF',
@@ -212,8 +212,8 @@ function handleEvent(event) {
             },
             {
               type: 'message',
-              label: 'it 邦幫忙鐵人賽',
-              text: 'it 邦幫忙鐵人賽',
+              label: 'Osense',
+              text: 'Osense',
             },
             {
               type: 'uri',
@@ -256,7 +256,7 @@ function handleEvent(event) {
           type: 'carousel',
           columns: [
             {
-              thumbnailImageUrl: 'https://ithelp.ithome.com.tw/images/ironman/11th/event/kv_event/kv-bg-addfly.png',
+              thumbnailImageUrl: 'https://upload.wikimedia.org/wikipedia/commons/thumb/1/15/Red_Apple.jpg/847px-Red_Apple.jpg',
               imageBackgroundColor: '#FFFFFF',
               title: 'this is menu',
               text: 'description',
@@ -273,8 +273,8 @@ function handleEvent(event) {
                 },
                 {
                   type: 'message',
-                  label: 'it 邦幫忙鐵人賽',
-                  text: 'it 邦幫忙鐵人賽',
+                  label: 'Osense',
+                  text: 'Osense',
                 },
                 {
                   type: 'uri',
@@ -284,7 +284,7 @@ function handleEvent(event) {
               ],
             },
             {
-              thumbnailImageUrl: 'https://ithelp.ithome.com.tw/images/ironman/11th/event/kv_event/kv-bg-addfly.png',
+              thumbnailImageUrl: 'https://upload.wikimedia.org/wikipedia/commons/thumb/1/15/Red_Apple.jpg/847px-Red_Apple.jpg',
               imageBackgroundColor: '#000000',
               title: 'this is menu',
               text: 'description',
@@ -301,8 +301,8 @@ function handleEvent(event) {
                 },
                 {
                   type: 'message',
-                  label: 'it 邦幫忙鐵人賽',
-                  text: 'it 邦幫忙鐵人賽',
+                  label: 'Osense',
+                  text: 'Osense',
                 },
                 {
                   type: 'uri',
@@ -326,7 +326,7 @@ function handleEvent(event) {
           type: 'image_carousel',
           columns: [
             {
-              imageUrl: 'https://ithelp.ithome.com.tw/images/ironman/11th/event/kv_event/kv-bg-addfly.png',
+              imageUrl: 'https://upload.wikimedia.org/wikipedia/commons/thumb/1/15/Red_Apple.jpg/847px-Red_Apple.jpg',
               action: {
                 type: 'postback',
                 label: 'Buy',
@@ -334,7 +334,7 @@ function handleEvent(event) {
               },
             },
             {
-              imageUrl: 'https://ithelp.ithome.com.tw/images/ironman/11th/event/kv_event/kv-bg-addfly.png',
+              imageUrl: 'https://upload.wikimedia.org/wikipedia/commons/thumb/1/15/Red_Apple.jpg/847px-Red_Apple.jpg',
               action: {
                 type: 'message',
                 label: 'Yes',
@@ -342,7 +342,7 @@ function handleEvent(event) {
               },
             },
             {
-              imageUrl: 'https://ithelp.ithome.com.tw/images/ironman/11th/event/kv_event/kv-bg-addfly.png',
+              imageUrl: 'https://upload.wikimedia.org/wikipedia/commons/thumb/1/15/Red_Apple.jpg/847px-Red_Apple.jpg',
               action: {
                 type: 'uri',
                 label: 'View detail',
@@ -352,6 +352,69 @@ function handleEvent(event) {
           ],
         },
       });
+  }
+  if(event.message.text === 'Quick reply sample'){
+    return client.replyMessage(event.replyToken,
+      {
+        type: 'text',
+        text: 'Quick reply sample',
+        quickReply: {
+          items: [
+            {
+              type: 'action',
+              action: {
+                type: 'postback',
+                label: 'osense',
+                data: 'action=url&item=clarence',
+                text: 'osense'
+              }
+            },
+            {
+              type: 'action',
+              action: {
+                type: 'message',
+                label: 'osense home',
+                text: 'https://osensetech.com/'
+              }
+            },
+            {
+              type: 'action',
+              action: {
+                type: 'camera',
+                label: 'Send camera'
+              }
+            },
+            {
+              type: 'action',
+              action: {
+                type: 'cameraRoll',
+                label: 'Send camera roll'
+              }
+            },
+            {
+              type: 'action',
+              action: {
+                type: 'location',
+                label: 'Send location'
+              }
+            }
+          ]
+        },
+      }
+    )
+  }
+  if(event.message.text === 'show rich menu'){
+    const richmenu = {
+      size: {
+        width: 2500,
+        height: 1686
+      },
+      // Other rich menu object properties
+      // ...
+    }
+    client.createRichMenu(richmenu)
+      .then((richMenuId) =>
+      console.log(richMenuId))
   }
 
   // create a echoing text message
@@ -364,4 +427,5 @@ function handleEvent(event) {
   return client.replyMessage(event.replyToken, echo);
 }
 
-module.exports = router;
+module.exports =router
+// module.exports ={router,client}
